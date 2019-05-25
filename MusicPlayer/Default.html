@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>音乐播放器</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 320px;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        header {
+            height: 40px;
+            line-height: 40px;
+            background-color: orange;
+            text-align: center;
+        }
+
+        footer {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            background-color: orange;
+            text-indent: 42px;
+        }
+
+        .icon {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: url(images/icon.png) no-repeat;
+            background-position: -635px 3px;
+        }
+
+        li {
+            height: 50px;
+            padding-left: 20px;
+            padding-right: 20px;
+            line-height: 50px;
+            border: 1px solid red;
+            border-top: none;
+            list-style: none;
+            font-size: 16px;
+        }
+
+        #ado {
+            margin-top: 10px;
+            width: 100%;
+            height: 20px;
+        }
+
+        .sty {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <header>MyPlayer</header>
+    <section>
+        <ul>
+            <li>01.阿尔斯楞的眼睛</li>
+            <li>02.天边</li>
+            <li>03.呼伦贝尔大草原</li>
+        </ul>
+    </section>
+    <audio src="" id="ado" controls=""></audio>
+    <footer>
+        <div class="icon"></div>
+        <span id="con"></span>
+    </footer>
+
+    <script type="text/javascript">
+        (function () {
+            var lis = document.getElementsByTagName("li");
+            var ado = document.getElementById("ado");
+            var con = document.getElementById("con");
+
+            var arr = ["res/01.阿尔斯楞的眼睛.mp3", "res/02.天边.mp3", "res/03.呼伦贝尔大草原.mp3"];
+
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].onclick = function () {
+                    for (var j = 0; j < lis.length; j++) {
+                        if (this == lis[j]) {
+                            lis[j].className = "sty";
+                            ado.src = arr[j];
+                            ado.play();
+                            con.innerHTML = lis[j].innerHTML;
+
+                            var n = j;
+                            ado.onended = function () {
+                                n++;
+                                if (n >= lis.length) {
+                                    n = 0;
+                                }
+
+                                for (var x = 0; x < lis.length; x++) {
+                                    lis[x].className = "";
+                                }
+
+                                lis[n].className = "sty";
+                                con.innerHTML = lis[n].innerHTML;
+                                ado.src = arr[n];
+                                ado.play();
+                            }
+                        } else {
+                            lis[j].className = "";
+                        }
+                    }
+                }
+            }
+        }())
+    </script>
+</body>
+</html>

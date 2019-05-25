@@ -1,3 +1,3 @@
 # Demo
-# Drag exsample
+# HTML5 drag exsample
 # HTML5 music player exsample
